@@ -1,12 +1,12 @@
 import os
-from filter_directory import filtering_folder_and_file_names
-from work_in_directory import moving_files_and_folders
-from config import DESKTOP_PATH
+from filter_directory import path_to_filtering_folder_and_file
+from directory_interaction import moving_files_and_folders
+from setting.get_config import DESKTOP_PATH
 
-
+   
 def main():
     object_names = os.listdir(DESKTOP_PATH)
-    all_name = filtering_folder_and_file_names(object_names)
+    all_name = path_to_filtering_folder_and_file(object_names)
     moving_files_and_folders(all_name)
 
 

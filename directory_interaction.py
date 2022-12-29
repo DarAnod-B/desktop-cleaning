@@ -1,5 +1,5 @@
 import os
-from config import STORAGE_FOLDER, DESKTOP_PATH
+from setting.get_config import STORAGE_FOLDER, DESKTOP_PATH
 
 
 def path_from_desktop(*path):
