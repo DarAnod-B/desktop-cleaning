@@ -1,16 +1,16 @@
 import configparser
-import os
+from setting.find_path import path_to_config
 
 
 def save_settings(func):
     def wrapper(*args, **kwargs):
-        path_to_settings = os.path.join("setting", "config.ini")
+        path = path_to_config()
         config = configparser.ConfigParser()
-        config.read(path_to_settings, encoding='utf-8')
+        config.read(path, encoding='utf-8')
 
         config = func(*args, **kwargs, config=config)
 
-        with open(path_to_settings, 'w', encoding='utf-8') as configfile:
+        with open(path, 'w', encoding='utf-8') as configfile:
             config.write(configfile)
     return wrapper
 

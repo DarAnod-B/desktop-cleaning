@@ -25,7 +25,7 @@ def filter_extension(file_name):
     return extension not in ALLOWED_EXTENSIONS
 
 
-def path_to_filtering_folder_and_file(object_names):
+def filtering_folder_and_file_name(object_names):
     file_path, folder_path = separating_files_and_folders(object_names)
 
     filtered_file_path = list(filter(filter_extension, file_path))
