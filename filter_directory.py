@@ -1,5 +1,5 @@
 from setting.get_config import STORAGE_FOLDER, ALLOWED_EXTENSIONS, TRANSFER_FOLDERS
-from directory_interaction import path_from_desktop
+from desktop_interaction import path_from_desktop
 import os
 
 
@@ -38,5 +38,5 @@ def filtering_folder_and_file_name(object_names):
     if TRANSFER_FOLDERS == False:
         folder_path = []
 
-    all_path = filtered_file_path + folder_path
-    return all_path
+    filtered_files_and_folders = filtered_file_path + folder_path
+    return filtered_files_and_folders
