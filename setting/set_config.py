@@ -27,6 +27,16 @@ def change_ALLOWED_EXTENSIONS(value, config):
     return config
 
 @save_settings
+def change_WALLPAPER_PATH(value, config):
+    config["parameter"]["WALLPAPER_PATH"] = f"{value}"
+    return config
+
+@save_settings
 def change_TRANSFER_FOLDERS(value, config):
     config["flag"]["TRANSFER_FOLDERS"] = f"{value}"
+    return config
+
+@save_settings
+def change_SET_WALLPAPER(value, config):
+    config["flag"]["SET_WALLPAPER"] = f"{value}"
     return config

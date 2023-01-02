@@ -15,15 +15,19 @@ def path_to_documents():
     return buf.value
 
 
-def create_config(config_path):
-    def_config_name = 'default_config.ini'
-
+def path_to_application():
     if getattr(sys, 'frozen', False):
         application_path = sys._MEIPASS
     elif __file__:
-        application_path = os.path.dirname(__file__)
+        application_path = os.getcwd()
+    return application_path
 
-    def_config_path = os.path.join(application_path, def_config_name)
+
+def create_config(config_path):
+    def_config_folder_name = 'setting'
+    def_config_name = 'default_config.ini'
+    def_config_path = os.path.join(
+        path_to_application(), def_config_folder_name, def_config_name)
     shutil.copy(def_config_path, config_path)
 
 
@@ -39,3 +43,5 @@ def path_to_config():
     if not os.path.exists(config_path):
         create_config(config_path)
     return config_path
+
+ 
