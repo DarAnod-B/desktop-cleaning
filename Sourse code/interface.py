@@ -80,7 +80,7 @@ def launch_interface():
 
     ]
 
-    path_to_icon = os.path.join(path_to_application(), 'data', 'icon.ico')
+    path_to_icon = os.path.join(path_to_application(), 'setting', 'data', 'icon.ico')
     global window
     window = sg.Window('DesktopCleaning', layout, icon=path_to_icon)
 
