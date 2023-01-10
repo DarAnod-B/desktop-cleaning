@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
 import re
 import os
-from setting.set_config import change_STORAGE_FOLDER, change_ALLOWED_EXTENSIONS, change_WALLPAPER_PATH, change_SET_WALLPAPER, change_TRANSFER_FOLDERS
+from setting.set_config import change_STORAGE_FOLDER, change_ALLOWED_EXTENSIONS, change_EXCLUDED_NAMES, change_WALLPAPER_PATH, change_SET_WALLPAPER, change_TRANSFER_FOLDERS
 from setting.find_path import path_to_application
-from setting.get_config import STORAGE_FOLDER, ALLOWED_EXTENSIONS, WALLPAPER_PATH
+from setting.get_config import STORAGE_FOLDER, WALLPAPER_PATH, ALLOWED_EXTENSIONS, EXCLUDED_NAMES
 
 
 def validation_check(values):
@@ -31,16 +31,17 @@ def interface_update(values):
     visible_change(values)
 
 
-def extension_list_create(extension_str):
-    extension_str = re.sub(" +", " ", extension_str.strip())
-    return extension_str.split(' ')
+def list_create(extension_str):
+    return re.sub(" +", " ", extension_str.strip())
 
 
 def saving_config_changes(values):
     change_STORAGE_FOLDER(
         values['-STORAGE_FOLDER-'].replace(' ', ''))
     change_ALLOWED_EXTENSIONS(
-        extension_list_create(values['-ALLOWED_EXTENSIONS-']))
+        list_create(values['-ALLOWED_EXTENSIONS-']))
+    change_EXCLUDED_NAMES(
+        list_create(values['-EXCLUDED_NAMES-']))
     change_SET_WALLPAPER(values['-SET_WALLPAPER-'])
     change_WALLPAPER_PATH(values['-WALLPAPER_PATH-'])
     change_TRANSFER_FOLDERS(values['-TRANSFER_FOLDERS-'])
@@ -54,15 +55,20 @@ def launch_interface():
         [sg.Input(key='-STORAGE_FOLDER-', enable_events=True,
                   default_text=STORAGE_FOLDER)],
 
-        [sg.Text('Сохраняемые расширения:')],
+        [sg.Text('Непереносимые расширения\n(перечисление через пробел):')],
         [sg.Input(key='-ALLOWED_EXTENSIONS-', enable_events=True,
-                  default_text=' '.join(ALLOWED_EXTENSIONS))],
+                  default_text=ALLOWED_EXTENSIONS)],
 
-        [sg.Checkbox('Сохранять папки', key='-TRANSFER_FOLDERS-', enable_events=True,
-                     default=True,  size=(12, 1))],
+        [sg.Text(
+            'Объекты исключенные из переноса \n(в названиях не должно быть пробелов или расширения,\n перечисление через пробел):')],
+        [sg.Input(key='-EXCLUDED_NAMES-', enable_events=True,
+                  default_text=EXCLUDED_NAMES)],
 
+        [sg.Checkbox('Переносить папки', key='-TRANSFER_FOLDERS-', enable_events=True,
+                     default=True,  size=(13, 1))],
         [sg.Checkbox('Смена обоев', key='-SET_WALLPAPER-', enable_events=True,
                      default=False,  size=(12, 1))],
+
         [sg.Text('_' * 45, key="-SELECTION_1-", visible=False, size=(40, 1))],
         [sg.Input(key="-WALLPAPER_PATH-", default_text=WALLPAPER_PATH, change_submits=True, visible=False,  size=(36, 1)),
          sg.FileBrowse(key="-Browse-", visible=False)],

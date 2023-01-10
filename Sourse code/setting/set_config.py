@@ -22,19 +22,28 @@ def change_STORAGE_FOLDER(name, config):
 
 
 @save_settings
-def change_ALLOWED_EXTENSIONS(value, config):
-    config["parameter"]["ALLOWED_EXTENSIONS"] = f"{value}"
-    return config
-
-@save_settings
 def change_WALLPAPER_PATH(value, config):
     config["parameter"]["WALLPAPER_PATH"] = f"{value}"
     return config
+
+
+@save_settings
+def change_ALLOWED_EXTENSIONS(list_of_extensions, config):
+    config["parameter"]["ALLOWED_EXTENSIONS"] = f"{list_of_extensions}"
+    return config
+
+
+@save_settings
+def change_EXCLUDED_NAMES(list_of_names, config):
+    config["parameter"]["EXCLUDED_NAMES"] = f"{list_of_names}"
+    return config
+
 
 @save_settings
 def change_TRANSFER_FOLDERS(value, config):
     config["flag"]["TRANSFER_FOLDERS"] = f"{value}"
     return config
+
 
 @save_settings
 def change_SET_WALLPAPER(value, config):

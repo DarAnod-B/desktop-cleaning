@@ -1,4 +1,4 @@
-from setting.get_config import STORAGE_FOLDER, ALLOWED_EXTENSIONS, TRANSFER_FOLDERS
+from setting.get_config import STORAGE_FOLDER, ALLOWED_EXTENSIONS, TRANSFER_FOLDERS, EXCLUDED_NAMES
 from desktop_interaction import path_from_desktop
 import os
 
@@ -25,9 +25,16 @@ def filter_extension(file_name):
     return extension not in ALLOWED_EXTENSIONS
 
 
-def filtering_folder_and_file_name(object_names):
-    file_path, folder_path = separating_files_and_folders(object_names)
+def filter_object_names(object_names):
+    object_name_without_extension = f'{object_names}'.rsplit('.', 1)[0]
+    return object_name_without_extension not in EXCLUDED_NAMES
 
+
+def filtering_folder_and_file_name(object_names):
+    non_excluded_object_names = list(filter(filter_object_names, object_names))
+
+    file_path, folder_path = separating_files_and_folders(
+        non_excluded_object_names)
     filtered_file_path = list(filter(filter_extension, file_path))
 
     try:
@@ -40,3 +47,9 @@ def filtering_folder_and_file_name(object_names):
 
     filtered_files_and_folders = filtered_file_path + folder_path
     return filtered_files_and_folders
+
+
+if __name__ == "__main__":
+    from setting.get_config import DESKTOP_PATH
+    object_names = os.listdir(DESKTOP_PATH)
+    print(filtering_folder_and_file_name(object_names))
