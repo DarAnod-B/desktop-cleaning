@@ -6,7 +6,10 @@ from setting.find_path import path_to_config
 
 
 def list_processing(list_as_a_string):
-    return re.sub("[^A-Za-zА-Яа-я0-9_ ]", "", list_as_a_string).split(" ")
+    clean_list_as_a_string = re.sub("[^A-Za-zА-Яа-я0-9_ ]", "", list_as_a_string)
+    if clean_list_as_a_string == "":
+        return []
+    return clean_list_as_a_string.split(" ")
 
 
 path = path_to_config()
