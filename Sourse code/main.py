@@ -10,7 +10,7 @@ from setting.get_config import DESKTOP_PATH
 def main():
     autorun_activation()
 
-    if '--no_interface' in sys.argv[1:]:
+    if not '--no_interface' in sys.argv[1:]:
         object_names = os.listdir(DESKTOP_PATH)
         filtered_files_and_folders = filtering_folder_and_file_name(
             object_names)
